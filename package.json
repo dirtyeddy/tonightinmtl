@@ -1,0 +1,15 @@
+{
+  "name": "tonightinmtl",
+  "version": "2.0.0",
+  "description": "Daily scraper for small-venue live music in Montréal",
+  "type": "module",
+  "main": "run.mjs",
+  "scripts": {
+    "scrape": "node run.mjs",
+    "scrape:ritz": "node run.mjs --venue ritz",
+    "scrape:casa": "node run.mjs --venue casa"
+  },
+  "dependencies": {
+    "jsdom": "^26.0.0"
+  }
+}
