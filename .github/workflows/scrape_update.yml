@@ -1,0 +1,33 @@
+name: Production Scraping Suite 2.0
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Repository Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node Runtime Profile
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Initialize Module Workspace
+        run: |
+          npm init -y
+          npm install cheerio
+
+      - name: Execute Live Scrapers Orchestration Loop
+        run: node orchestrator.js
+
+      - name: Deploy Compiled Pipeline Assets directly to Neocities
+        uses: bcomnes/deploy-to-neocities@v2
+        with:
+          api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
+          cleanup: false
+          dist_dir: .
